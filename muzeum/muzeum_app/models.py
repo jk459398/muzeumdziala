@@ -5,7 +5,7 @@ from django import forms
 class UserInfo(models.Model):
     user_name = models.CharField(max_length=100)  # Pole user_name
     user_email = models.EmailField()  # Pole user_email
-    user_password = models.CharField(max_length=255, default='default_password')
+    user_password = models.CharField(max_length=255)
 
     def __str__(self):
         return self.user_name
