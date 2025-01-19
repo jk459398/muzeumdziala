@@ -24,6 +24,6 @@ class LoanForm(forms.ModelForm):
 class StartForm(forms.ModelForm):
     class Meta:
         model = UserInfo  # Upewnij się, że masz model UserInfo w models.py
-        fields = ['user_name', 'user_email']  # Przykład pól formularza
+        fields = ['user_name', 'user_email', 'user_password']  # Przykład pól formularza
 
 

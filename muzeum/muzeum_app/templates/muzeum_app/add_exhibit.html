@@ -9,8 +9,9 @@
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
+        
         <button type="submit">Dodaj</button>
     </form>
-    <a href="{% url 'logout' %}">Wyloguj się</a>
+    {% comment %} <a href="{% url 'logout' %}">Wyloguj się</a> {% endcomment %}
 </body>
 </html>

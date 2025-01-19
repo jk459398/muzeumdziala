@@ -14,6 +14,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
+
+
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -24,19 +26,7 @@ def login_view(request):
             return redirect('start_form')  # Po zalogowaniu przekierowanie na start_form
         else:
             messages.error(request, 'Nieprawidłowy login lub hasło.')
-    return render(request, 'login.html')
-
-
-def start_view(request):
-    return render(request, 'muzeum_app/start.html')  # Dodaj start.html
-
-
-def start_view(request):
-    if request.user.is_authenticated:
-        return redirect('add_exhibit')  # Zamiast formularza, od razu przekieruj
-    else:
-        return redirect('login')  # Jeśli użytkownik nie jest zalogowany, przekieruj go na stronę logowania
-
+    return render(request, 'muzeum_app/login.html')
 
 @login_required
 def add_exhibit(request):
@@ -45,9 +35,6 @@ def add_exhibit(request):
         form.save()
         return redirect('add_exhibit')  # Po zapisaniu wraca do formularza
     return render(request, 'muzeum_app/add_exhibit.html', {'form': form})
-
-
-
 
 @login_required  # Tylko zalogowani użytkownicy mogą dodawać artystów
 def add_artist(request):
@@ -94,8 +81,6 @@ def start_view(request):
             # Zapisz dane do bazy danych
             UserInfo.objects.create(user_name=user_name, user_email=user_email)
             # Przekaż także user_email do szablonu success.html
-            return render(request, 'muzeum_app/success.html', {'user_name': user_name, 'user_email': user_email})
-        else:
             return redirect('add_exhibit')  # Zamiast formularza, od razu przekieruj
     else:
         form = StartForm()

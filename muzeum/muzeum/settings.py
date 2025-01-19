@@ -4,6 +4,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -49,8 +50,8 @@ ROOT_URLCONF = 'muzeum.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'muzeum_app', 'templates')],  # Dodaj tę linię
-        'APP_DIRS': True,
+        'DIRS': [],  # Jeśli korzystasz tylko z APP_DIRS, to może zostać puste
+        'APP_DIRS': True,  # To pozwala Django automatycznie wykrywać szablony w aplikacjach
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
