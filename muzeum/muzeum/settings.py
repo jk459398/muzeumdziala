@@ -70,10 +70,23 @@ WSGI_APPLICATION = 'muzeum.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+with open ('run/secrets/db_password.txt', 'r') as file:
+    db_password = file.read().replace('\n', '')
+with open ('run/secrets/db_user.txt', 'r') as file:
+    db_user = file.read().replace('\n', '')
+with open ('run/secrets/db_host.txt', 'r') as file:
+    db_host = file.read().replace('\n', '')
+with open ('run/secrets/db_port.txt', 'r') as file:
+    db_port = file.read().replace('\n', '')
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': db_user,
+        'PASSWORD': db_password,
+        'HOST': db_host,
+        'PORT': db_port
     }
 }
 
