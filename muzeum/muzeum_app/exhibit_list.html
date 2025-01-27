@@ -1,0 +1,7 @@
+<h1>Lista Eksponatów</h1>
+<ul>
+    {% for exhibit in exhibits %}
+        <li>{{ exhibit.title }} - {{ exhibit.type }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'home' %}">Powrót</a>

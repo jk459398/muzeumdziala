@@ -15,6 +15,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
 
+def home_view(request):
+    # Widok dla gości i pracowników
+    exhibits = Exhibit.objects.all()
+    artists = Artist.objects.all()
+    return render(request, 'muzeum_app/home.html', {'exhibits': exhibits, 'artists': artists})
 
 def login_view(request):
     if request.method == 'POST':
@@ -27,6 +32,15 @@ def login_view(request):
         else:
             messages.error(request, 'Nieprawidłowy login lub hasło.')
     return render(request, 'muzeum_app/login.html')
+
+def exhibit_list(request):
+    exhibits = Exhibit.objects.all()
+    return render(request, 'muzeum_app/exhibit_list.html', {'exhibits': exhibits})
+
+def artist_list(request):
+    artists = Artist.objects.all()
+    return render(request, 'muzeum_app/artist_list.html', {'artists': artists})
+
 
 @login_required
 def add_exhibit(request):

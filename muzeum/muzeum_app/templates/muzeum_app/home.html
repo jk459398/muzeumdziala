@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Witamy w Muzeum</h1>
+    
+    {% if request.user.is_authenticated %}
+        <h2>Cześć, {{ request.user.username }}!</h2>
+        <p>Masz dostęp do opcji zarządzania muzeum:</p>
+        <ul>
+            <li><a href="{% url 'add_exhibit' %}">Dodaj Eksponat</a></li>
+            <li><a href="{% url 'add_artist' %}">Dodaj Artystę</a></li>
+            <li><a href="{% url 'add_loan' %}">Dodaj Wypożyczenie</a></li>
+        </ul>
+        <a href="{% url 'logout' %}">Wyloguj się</a>
+    {% else %}
+        <h2>Gość</h2>
+        <p>Możesz przeglądać listę eksponatów i artystów:</p>
+        <ul>
+            <li><a href="{% url 'exhibit_list' %}">Lista Eksponatów</a></li>
+            <li><a href="{% url 'artist_list' %}">Lista Artystów</a></li>
+        </ul>
+        <a href="{% url 'login' %}">Zaloguj się jako pracownik</a>
+    {% endif %}
+</body>
+</html>
