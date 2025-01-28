@@ -15,12 +15,6 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
 
-def home_view(request):
-    # Widok dla gości i pracowników
-    exhibits = Exhibit.objects.all()
-    artists = Artist.objects.all()
-    return render(request, 'muzeum_app/home.html', {'exhibits': exhibits, 'artists': artists})
-
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
