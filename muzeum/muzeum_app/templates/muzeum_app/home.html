@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Strona główna</title>
 </head>
 <body>
     <h1>Witamy w Muzeum</h1>
@@ -23,7 +23,7 @@
             <li><a href="{% url 'exhibit_list' %}">Lista Eksponatów</a></li>
             <li><a href="{% url 'artist_list' %}">Lista Artystów</a></li>
         </ul>
-        <a href="{% url 'login' %}">Zaloguj się jako pracownik</a>
+        <a href="{% url 'login' %}?next={% url 'add_exhibit' %}">Zaloguj się jako pracownik</a>
     {% endif %}
 </body>
 </html>

@@ -2,10 +2,8 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Witamy w Muzeum</title>
+    <title>Eksponaty</title>
     <style>
-        /* Ogólne ustawienia tła */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -21,9 +19,8 @@
             color: #fff;
         }
 
-        /* Główna kontener */
         .container {
-            background: rgba(255, 255, 255, 0.8);  /* Subtelne tło */
+            background: rgba(255, 255, 255, 0.8); /* Subtelne tło */
             border-radius: 15px;
             padding: 40px;
             width: 350px;
@@ -42,36 +39,25 @@
             font-weight: bold;
         }
 
-        p {
+        ul {
+            list-style: none;
+            padding: 0;
             font-size: 1.2rem;
-            margin-bottom: 25px;
             color: #34495e;
         }
 
-        /* Styl dla przycisków */
-        button {
-            background-color: #2980b9;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.2rem;
-            padding: 15px 30px;
+        li {
             margin: 10px 0;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            padding: 8px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
         }
 
-        button:hover {
-            background-color: #1abc9c;  /* Zmiana koloru przycisku */
-            transform: scale(1.05); /* Lekka animacja powiększenia */
+        li:hover {
+            background-color: #ecf0f1; /* Subtelna zmiana koloru tła elementu listy */
         }
 
-        button:focus {
-            outline: none;
-        }
-
-        /* Stopka */
         .footer {
             position: absolute;
             bottom: 20px;
@@ -82,14 +68,40 @@
         .footer p {
             margin: 0;
         }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #1abc9c;
+            transform: scale(1.05);
+        }
+
+        a:focus {
+            outline: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Witamy w Muzeum!</h2>
-        <p>Zapraszamy do wyboru jednej z opcji:</p>
-        <button onclick="location.href='{% url 'zalogujsie' %}'">Dla pracownika</button>
-        <button onclick="location.href='{% url 'guest_view' %}'">Dla gościa</button>
+        <h2>Lista Eksponatów</h2>
+        <ul>
+            {% for exhibit in exhibits %}
+                <li>{{ exhibit.name }} - {{ exhibit.description }}</li>
+            {% empty %}
+                <li>Brak eksponatów w bazie.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'login' %}">Powrót</a>
     </div>
     <div class="footer">
         <p>&copy; 2025 Muzeum - Wszystkie prawa zastrzeżone</p>

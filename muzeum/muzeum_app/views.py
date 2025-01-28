@@ -10,9 +10,9 @@ from django.contrib.auth import login
 from django.contrib.auth import authenticate
 from django.contrib import messages
 
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
+def guest_view(request):
+    exhibits = Exhibit.objects.all()
+    return render(request, 'muzeum_app/guest.html', {'exhibits': exhibits})
 
 
 def login_view(request):
@@ -34,7 +34,27 @@ def exhibit_list(request):
 def artist_list(request):
     artists = Artist.objects.all()
     return render(request, 'muzeum_app/artist_list.html', {'artists': artists})
+def zalogujsie(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                next_url = request.POST.get('next')  
+                return redirect('add_exhibit')  
+            else:
+                messages.error(request, 'Niepoprawny login lub hasło.')
+        else:
+            messages.error(request, 'Błąd formularza logowania.')
+    
+    else:
+        form = AuthenticationForm()
 
+    return render(request, 'muzeum_app/zalogujsie.html', {'form': form})
 
 @login_required
 def add_exhibit(request):

@@ -12,8 +12,8 @@ class ArtistForm(forms.ModelForm):
 class ExhibitForm(forms.ModelForm):
     class Meta:
         model = Exhibit
-        fields = ['title', 'exhibit_code', 'type', 'size', 'artist']
-
+        fields = ['title', 'exhibit_code', 'type', 'size', 'artist', 'is_in_museum', 'start_date', 'end_date']
+        
 # Formularz dla Wypożyczenia
 class LoanForm(forms.ModelForm):
     class Meta:

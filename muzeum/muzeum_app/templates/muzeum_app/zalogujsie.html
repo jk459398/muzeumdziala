@@ -1,0 +1,113 @@
+<form method="POST">
+    {% csrf_token %}
+    <div class="form-container">
+        <h3 class="form-title">Zaloguj się</h3>
+        
+        <div class="form-group">
+            <label for="username">Login</label>
+            <input type="text" name="username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Hasło</label>
+            <input type="password" name="password" required>
+        </div>
+        
+        <div class="form-group">
+            <button type="submit" class="btn">Zaloguj się</button>
+        </div>
+        
+        <input type="hidden" name="next" value="{{ request.GET.next }}">
+    </div>
+</form>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: linear-gradient(to right, #3498db, #9b59b6); /* Kolorowe tło z gradientem */
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+    }
+
+    /* Kontener formularza */
+    .form-container {
+        background: rgba(255, 255, 255, 0.8);  /* Subtelne tło */
+        border-radius: 15px;
+        padding: 40px;
+        width: 350px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .form-container:hover {
+        transform: scale(1.05); /* Powiększenie kontenera przy najechaniu */
+    }
+
+    .form-title {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+        color: #2c3e50;
+        font-weight: bold;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    .form-group label {
+        font-size: 1.1rem;
+        color: #333;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        margin-top: 8px;
+    }
+
+    .btn {
+        background-color: #2980b9;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        font-size: 1.2rem;
+        padding: 15px 30px;
+        margin: 10px 0;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #1abc9c;  /* Zmiana koloru przycisku */
+        transform: scale(1.05); /* Lekka animacja powiększenia */
+    }
+
+    .btn:focus {
+        outline: none;
+    }
+
+    /* Stopka */
+    .footer {
+        position: absolute;
+        bottom: 20px;
+        font-size: 0.9rem;
+        color: #7f8c8d;
+    }
+
+    .footer p {
+        margin: 0;
+    }
+</style>

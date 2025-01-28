@@ -16,7 +16,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_REDIRECT_URL = 'add_exhibit'  # Ustala stronę, na którą użytkownik trafi po zalogowaniu
+LOGIN_REDIRECT_URL = 'login'  # Ustala stronę, na którą użytkownik trafi po zalogowaniu
 LOGIN_URL = 'login'  # Strona logowania
 
 

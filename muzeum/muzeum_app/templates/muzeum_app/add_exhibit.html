@@ -1,17 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Muzeum</title>
+    <title>Dodaj Eksponat</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to right, #3498db, #9b59b6); /* Kolorowe tło z gradientem */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.8);  /* Subtelne tło */
+            border-radius: 15px;
+            padding: 40px;
+            width: 400px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: scale(1.05); /* Powiększenie kontenera przy najechaniu */
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-size: 1.2rem;
+            color: #34495e;
+            text-align: left;
+        }
+
+        select, input, textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #333;
+            background-color: #fff;
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus, input:focus, textarea:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        button {
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            padding: 12px 30px;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1abc9c;
+            transform: scale(1.05);
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Muzeum</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        
-        <button type="submit">Dodaj</button>
-    </form>
-    {% comment %} <a href="{% url 'logout' %}">Wyloguj się</a> {% endcomment %}
+    <div class="container">
+        <h1>Dodaj Eksponat</h1>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <!-- Tytuł -->
+            <div>
+                <label for="id_title">Tytuł:</label>
+                {{ form.title }}
+            </div>
+            
+            <!-- Kod Eksponatu -->
+            <div>
+                <label for="id_exhibit_code">Kod Eksponatu:</label>
+                {{ form.exhibit_code }}
+            </div>
+
+            <!-- Typ -->
+            <div>
+                <label for="id_type">Typ:</label>
+                {{ form.type }}
+            </div>
+
+            <!-- Rozmiar -->
+            <div>
+                <label for="id_size">Rozmiar:</label>
+                {{ form.size }}
+            </div>
+
+            <!-- Artysta -->
+            <div>
+                <label for="id_artist">Artysta:</label>
+                {{ form.artist }}
+            </div>
+
+            <!-- Data początkowa -->
+            <div>
+                <label for="id_start_date">Data początkowa:</label>
+                {{ form.start_date }}
+            </div>
+
+            <!-- Data końcowa -->
+            <div>
+                <label for="id_end_date">Data końcowa:</label>
+                {{ form.end_date }}
+            </div>
+
+            <button type="submit">Dodaj Eksponat</button>
+        </form>
+    </div>
+    <div class="footer">
+        <p>&copy; 2025 Muzeum - Wszystkie prawa zastrzeżone</p>
+    </div>
 </body>
 </html>
