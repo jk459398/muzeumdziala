@@ -34,6 +34,21 @@ class SizeForm(forms.ModelForm):
         model = Size
         fields = ['width', 'height', 'weight']
 
+    def clean(self):
+        cleaned_data = super().clean()
+        width = cleaned_data.get('width')
+        height = cleaned_data.get('height')
+        weight = cleaned_data.get('weight')
+
+        if width is not None and width < 0:
+            self.add_error('width', 'Szerokość nie może być ujemna.')
+        if height is not None and height < 0:
+            self.add_error('height', 'Wysokość nie może być ujemna.')
+        if weight is not None and weight < 0:
+            self.add_error('weight', 'Waga nie może być ujemna.')
+
+        return cleaned_data
+
 class InstitutionForm(forms.ModelForm):
     class Meta:
         model = Institution
@@ -55,4 +70,4 @@ class LoanForm(forms.Form):
     exhibit = forms.ModelChoiceField(queryset=Eksponat.objects.all(), label="Eksponat")
     institution = forms.ModelChoiceField(queryset=Institution.objects.all(), label="Miejsce")
     start_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), label="Data od")
-    end_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), label="Data do") 
+    end_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), label="Data do")

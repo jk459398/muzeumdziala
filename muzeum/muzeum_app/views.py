@@ -65,6 +65,14 @@ def login_view(request):
 
 def exhibit_list(request):
     exhibits = Eksponat.objects.all()
+    status_translation = {
+        'gallery': 'galeria',
+        'magazine': 'w magazynie',
+        'loaned': 'wypożyczony',
+        'available': 'dostępny do wypożyczenia'
+    }
+    for exhibit in exhibits:
+        exhibit.translated_status = status_translation.get(exhibit.status, exhibit.status)
     
     return render(request, 'muzeum_app/exhibit_list.html', {'exhibits': exhibits})
 
@@ -167,6 +175,9 @@ def newloan(request):
             if (end_date - start_date).days > 30:
                 return render(request, 'muzeum_app/loan_exhibit.html', {'form': form, 'error': 'Różnica między datą rozpoczęcia a zakończenia nie może być większa niż 30 dni.'})
             
+            if exhibit.cenny:
+                return render(request, 'muzeum_app/loan_exhibit.html', {'form': form, 'error': 'Nie można wypożyczyć eksponatu cennego.'})
+            
             transfer_item = Loan(
                 exhibit=exhibit,
                 place=institution,
@@ -178,49 +189,6 @@ def newloan(request):
     else:
         form = LoanForm()
     return render(request, 'muzeum_app/loan_exhibit.html', {'form': form})
-    
 
-# @login_required  
-# def loan_exhibit(request):
-#     if request.method == 'POST':
-#         form = LoanForm(request.POST)
-#         if form.is_valid():
-#             form.save()  
-#             return redirect('loan_exhibit.html') 
-#     else:
-#         form = LoanForm()
-
-#     return render(request, 'muzeum_app/loan_exhibit.html', {'form': form})
-
-# @login_required
-# def change_exhibit_status(request):
-#     exhibit = Exhibit.objects.first()  
-#     if request.method == 'POST':
-#         form = ExhibitForm(request.POST, instance=exhibit)  
-#         if form.is_valid():
-#             form.save()  
-#             return redirect('wybor')  
-#     else:
-#         form = ExhibitForm(instance=exhibit) 
-#     return render(request, 'muzeum_app/change_exhibit_status.html', {
-#         'form': form,
-#         'exhibit': exhibit  
-#     })
-
-# @login_required
-# def historia_wydarzen(request):
-#     if request.method == 'POST':
-#         form = LoanForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('wybor')  
-#     else:
-#         form = LoanForm()
-
-#     wydarzenia_wypozyczen = LoanEvent.objects.all()  
-#     return render(request, 'muzeum_app/history.html', {
-#         'form': form, 
-#         'wydarzenia_wypozyczen': wydarzenia_wypozyczen
-#     })
 
 
