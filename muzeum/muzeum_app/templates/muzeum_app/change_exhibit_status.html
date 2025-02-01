@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Zmiana Statusu Eksponatu</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to right, #3498db, #9b59b6);
+            background-size: cover;
+            background-position: center;
+            color: #000;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 40px;
+            width: 450px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+        .container:hover {
+            transform: scale(1.05);
+        }
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        label {
+            font-size: 1.2rem;
+            color: #000;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .radio-group {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .radio-group label {
+            font-size: 1rem;
+            color: #333;
+        }
+        select, input, button {
+            font-size: 1.2rem;
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+            border: 1px solid #2980b9;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.4rem;
+            padding: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        button:hover {
+            background-color: #1abc9c;
+            transform: scale(1.05);
+        }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 1rem;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Zmiana Statusu Eksponatu</h1>
+        <form method="POST">
+            {% csrf_token %}
+            
+            <!-- Wybór Eksponatu -->
+            <div class="form-group">
+                <label for="exhibit">Wybierz Eksponat:</label>
+                <select name="exhibit" id="exhibit" required>
+                    <option value="">-- Wybierz Eksponat --</option>
+                    {% for exhibit in exhibits %}
+                        <option value="{{ exhibit.id }}" {% if form.exhibit.value == exhibit.id %}selected{% endif %}>
+                            {{ exhibit.title }} ({{ exhibit.artist }})
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Wybór Statusu -->
+            <div class="form-group">
+                <label for="status">Status Eksponatu:</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="status" value="dostępny" {% if form.status.value == 'dostępny' %}checked{% endif %}> Dostępny
+                    </label>
+                    <label>
+                        <input type="radio" name="status" value="w magazynie" {% if form.status.value == 'w magazynie' %}checked{% endif %}> W magazynie
+                    </label>
+                    <label>
+                        <input type="radio" name="status" value="wypożyczony" {% if form.status.value == 'wypożyczony' %}checked{% endif %}> Wypożyczony
+                    </label>
+                    <label>
+                        <input type="radio" name="status" value="wystawiony" {% if form.status.value == 'wystawiony' %}checked{% endif %}> Wystawiony
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit">Zapisz Zmiany</button>
+        </form>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 Muzeum - Wszystkie prawa zastrzeżone</p>
+    </div>
+</body>
+</html>

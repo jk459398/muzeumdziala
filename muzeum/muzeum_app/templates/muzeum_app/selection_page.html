@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Wybór</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to right, #3498db, #9b59b6);
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 40px;
+            width: 400px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .container:hover {
+            transform: scale(1.05);
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .button {
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            padding: 12px 30px;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .button:hover {
+            background-color: #1abc9c;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Wybierz opcję</h1>
+        <a href="{% url 'artist_list' %}" class="button">Lista Artystów</a>
+        <a href="{% url 'exhibit_list' %}" class="button">Lista Eksponatów</a>
+        <a href="{% url 'gallery_list' %}" class="button">Lista Galerii</a>
+        <a href="{% url 'loan_history' %}" class="button">Historia Wypożyczeń</a>
+    </div>
+</body>
+</html>

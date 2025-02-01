@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Historia Wypożyczeń wewnątrz muzeum</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to right, #3498db, #9b59b6);
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9); /* Slightly less transparent for better visibility */
+            border-radius: 15px;
+            padding: 40px;
+            width: 800px; /* Expanded container width */
+            max-width: 100%;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+            overflow-x: auto; /* Ensures the table is scrollable if too wide */
+            margin: 20px; /* Provides some margin around the container */
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            color: #2c3e50;
+            border-radius: 10px;
+            overflow: hidden;
+            table-layout: auto; /* Automatically adjusts column width */
+        }
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+            word-wrap: break-word; /* Breaks long text to prevent overflow */
+        }
+        th {
+            background: #3498db;
+            color: #fff;
+            font-weight: bold;
+        }
+        tr:hover {
+            background: #f1f1f1;
+        }
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Historia Wypożyczeń</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Wydarzenia</th>
+                    <th>Tytuł Eksponatu</th>
+                    <th>Galeria</th>
+                    <th>Data Rozpoczęcia</th>
+                    <th>Data Zakończenia</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for loan in transfers %}
+                    <tr>
+                        <td>{{ loan.id }}</td>
+                        <td>{{ loan.exhibit }}</td>
+                        <td>{{ loan.gallery }}</td>
+                        <td>{{ loan.start_date }}</td>
+                        <td>{{ loan.end_date }}</td>
+                        
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6">Brak historii wypożyczeń.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="footer">
+        <p>&copy; 2025 Muzeum - Wszystkie prawa zastrzeżone</p>
+    </div>
+</body>
+</html>

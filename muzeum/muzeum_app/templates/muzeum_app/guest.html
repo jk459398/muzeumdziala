@@ -13,14 +13,14 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(to right, #3498db, #9b59b6); /* Kolorowe tło z gradientem */
+            background: linear-gradient(to right, #3498db, #9b59b6);
             background-size: cover;
             background-position: center;
             color: #fff;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.8); /* Subtelne tło */
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 15px;
             padding: 40px;
             width: 350px;
@@ -29,7 +29,7 @@
         }
 
         .container:hover {
-            transform: scale(1.05); /* Powiększenie kontenera przy najechaniu */
+            transform: scale(1.05);
         }
 
         h2 {
@@ -55,7 +55,7 @@
         }
 
         li:hover {
-            background-color: #ecf0f1; /* Subtelna zmiana koloru tła elementu listy */
+            background-color: #ecf0f1;
         }
 
         .footer {
@@ -69,7 +69,7 @@
             margin: 0;
         }
 
-        a {
+        a, button {
             display: inline-block;
             margin-top: 20px;
             padding: 12px 30px;
@@ -81,28 +81,40 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
-        a:hover {
+        a:hover, button:hover {
             background-color: #1abc9c;
             transform: scale(1.05);
         }
 
-        a:focus {
+        a:focus, button:focus {
             outline: none;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .button-container button {
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Lista Eksponatów</h2>
-        <ul>
-            {% for exhibit in exhibits %}
-                <li>{{ exhibit.name }} - {{ exhibit.description }}</li>
-            {% empty %}
-                <li>Brak eksponatów w bazie.</li>
-            {% endfor %}
-        </ul>
+        <h2>Wybierz, co chcesz zobaczyć:</h2>
+        
+        <div class="button-container">
+            <a href="{% url 'exhibit_list' %}" class="btn btn-primary">Lista eksponatów</a>
+            <a href="{% url 'artist_list' %}" class="btn btn-primary">Lista artystów</a>
+            <a href="{% url 'gallery_list' %}" class="btn btn-primary">Lista galerii</a>
+        </div>
+        
+
         <a href="{% url 'login' %}">Powrót</a>
     </div>
+    
     <div class="footer">
         <p>&copy; 2025 Muzeum - Wszystkie prawa zastrzeżone</p>
     </div>

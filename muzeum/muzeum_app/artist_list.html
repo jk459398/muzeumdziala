@@ -1,7 +1,0 @@
-<h1>Lista Artystów</h1>
-<ul>
-    {% for artist in artists %}
-        <li>{{ artist.first_name }} {{ artist.last_name }}</li>
-    {% endfor %}
-</ul>
-<a href="{% url 'home' %}">Powrót</a>

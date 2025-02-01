@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Eksponatów</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to right, #3498db, #9b59b6);
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 40px;
+            width: 600px; /* Oryginalna szerokość */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            overflow-x: auto;
+            position: relative;
+            left: 150px; /* Przesunięcie w prawo */
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            color: #2c3e50;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background: #3498db;
+            color: #fff;
+        }
+        tr:hover {
+            background: #f1f1f1;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista Eksponatów</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tytuł</th>
+                    <th>Kod</th>
+                    <th>Typ</th>
+                    <th>Wysokość (cm)</th>
+                    <th>Szerokość (cm)</th>
+                    <th>Waga (kg)</th>
+                    <th>Artysta</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exhibit in exhibits %}
+                    <tr>
+                        <td>{{ exhibit.title }}</td>
+                        <td>{{ exhibit.exhibit_code }}</td>
+                        <td>{{ exhibit.type }}</td>
+                        <td>{{ exhibit.height }}</td>
+                        <td>{{ exhibit.width }}</td>
+                        <td>{{ exhibit.weight }}</td>
+                        <td>{{ exhibit.artist.first_name }} {{ exhibit.artist.last_name }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7">Brak eksponatów w bazie.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="footer">
+        <p>&copy; 2025 Muzeum - Wszystkie prawa zastrzeżone</p>
+    </div>
+</body>
+</html>

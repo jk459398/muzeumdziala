@@ -1,29 +1,58 @@
 # muzeum_app/forms.py
 from django import forms
-from .models import Artist, Exhibit, Size, Gallery, Loan, UserInfo  # Dodaj UserInfo, jeśli jest to wymagane
+from .models import *
 
-# Formularz dla Artysty
 class ArtistForm(forms.ModelForm):
     class Meta:
         model = Artist
-        fields = ['first_name', 'last_name', 'birth_year', 'death_year']
+        fields = ['first_name', 'last_name', 'birth_year', 'death_year']  
 
-# Formularz dla Eksponatu
+    def clean(self):
+        cleaned_data = super().clean()
+        birth_year = cleaned_data.get('birth_year')
+        death_year = cleaned_data.get('death_year')
+
+        if birth_year and death_year and birth_year >= death_year:
+            raise forms.ValidationError("Rok urodzenia musi być mniejszy niż rok śmierci.")
+        return cleaned_data
+
+
 class ExhibitForm(forms.ModelForm):
+    artist = forms.ModelChoiceField(
+        queryset=Artist.objects.all(),
+        required=False, 
+        empty_label="Nieznany"  
+    )
+
     class Meta:
-        model = Exhibit
-        fields = ['title', 'exhibit_code', 'type', 'size', 'artist', 'is_in_museum', 'start_date', 'end_date']
+        model = Eksponat
+        fields = ['title', 'type', 'artist', 'status', 'cenny']
+
         
-# Formularz dla Wypożyczenia
-class LoanForm(forms.ModelForm):
+class SizeForm(forms.ModelForm):
     class Meta:
-        model = Loan
-        fields = ['exhibit', 'institution_name', 'institution_city', 'start_date', 'end_date']
+        model = Size
+        fields = ['width', 'height', 'weight']
 
-# Formularz Startowy
-class StartForm(forms.ModelForm):
+class InstitutionForm(forms.ModelForm):
     class Meta:
-        model = UserInfo  # Upewnij się, że masz model UserInfo w models.py
-        fields = ['user_name', 'user_email', 'user_password']  # Przykład pól formularza
+        model = Institution
+        fields = ['name', 'city']
+        
+class GalleryForm(forms.ModelForm):
+    class Meta:
+        model = Gallery
+        fields = ['name', 'description']
 
 
+class ExhibitTransferForm(forms.Form):
+    exhibit = forms.ModelChoiceField(queryset=Eksponat.objects.all(), label="Eksponat")
+    gallery = forms.ModelChoiceField(queryset=Gallery.objects.all(), label="Miejsce")
+    start_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), label="Data od")
+    end_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), required=False, label="Data do")
+
+class LoanForm(forms.Form):
+    exhibit = forms.ModelChoiceField(queryset=Eksponat.objects.all(), label="Eksponat")
+    institution = forms.ModelChoiceField(queryset=Institution.objects.all(), label="Miejsce")
+    start_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), label="Data od")
+    end_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), label="Data do") 

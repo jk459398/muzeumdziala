@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj artystę</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, #3498db, #9b59b6);
+            color: #fff;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 40px;
+            width: 450px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+            color: black; /* Czarny kolor dla tekstów */
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* Styl dla daty urodzenia i daty śmierci w jednym rzędzie */
+        .date-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .date-group select {
+            width: 30%;
+            padding: 8px;
+            font-size: 0.9rem;  /* Mniejszy rozmiar czcionki dla daty */
+            margin-right: 10px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.4rem;
+            padding: 15px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #1abc9c;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 1rem;
+            color: #7f8c8d;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dodaj artystę</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_first_name">Imię:</label>
+                {{ form.first_name }}
+            </div>
+            <div class="form-group">
+                <label for="id_last_name">Nazwisko:</label>
+                {{ form.last_name }}
+            </div>
+            <div class="form-group">
+                <label for="id_birth_year">Data urodzenia:</label>
+                <div class="date-group">
+                    {{ form.birth_year.0 }} <!-- Dzień -->
+                    {{ form.birth_year.1 }} <!-- Miesiąc -->
+                    {{ form.birth_year.2 }} <!-- Rok -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="id_death_year">Data śmierci:</label>
+                <div class="date-group">
+                    {{ form.death_year.0 }} <!-- Dzień -->
+                    {{ form.death_year.1 }} <!-- Miesiąc -->
+                    {{ form.death_year.2 }} <!-- Rok -->
+                </div>
+            </div>
+            <button type="submit" class="btn">Dodaj artystę</button>
+        </form>
+    </div>
+    <div class="footer">
+        <p>&copy; 2025 Muzeum - Wszystkie prawa zastrzeżone</p>
+    </div>
+</body>
+</html> 

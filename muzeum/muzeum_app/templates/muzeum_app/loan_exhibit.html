@@ -1,19 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
-    <title>Dodaj dzieło i artystę</title>
+    <meta charset="UTF-8">
+    <title>Przenoszenie Eksponatu</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            height: 100vh;
+            height: 100vh;  
             display: flex;
             justify-content: center;
             align-items: center;
+            text-align: center;
             background: linear-gradient(to right, #3498db, #9b59b6);
-            color: black; /* Change text color to black */
+            background-size: cover;
+            background-position: center;
+            color: #000;
         }
+
         .container {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
@@ -21,10 +26,13 @@
             width: 450px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease-in-out;
+            text-align: left;
         }
+
         .container:hover {
             transform: scale(1.05);
         }
+
         h1 {
             font-size: 2.8rem;
             margin-bottom: 40px;
@@ -32,47 +40,71 @@
             font-weight: bold;
             text-align: center;
         }
-        form {
-            margin-bottom: 2rem;
+
+        .form-group {
+            margin-bottom: 20px;
         }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+            color: black;
+        }
+
+        .form-group input, .form-group select {
+            width: 80%; /* Zmniejszono szerokość pola "Exhibit" */
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
         button {
             display: block;
             width: 100%;
-            padding: 15px;
             background-color: #2980b9;
             color: white;
             border: none;
             border-radius: 30px;
             font-size: 1.4rem;
+            padding: 15px;
             margin: 15px 0;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
+
         button:hover {
             background-color: #1abc9c;
             transform: scale(1.05);
         }
-        .back-button {
-            background-color: #6c757d;
-            margin-top: 1rem;
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 1rem;
+            color: #7f8c8d;
         }
-        .back-button:hover {
-            background-color: #5a6268;
-        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Dodaj dzieło i artystę</h1>
+        <h1>Nowe wypożyczenie</h1>
         <form method="post">
             {% csrf_token %}
-            {{ exhibit_form.as_p }}
-            {{ size_form.as_p }}
-            <button type="submit">Zapisz</button>
+            {{ form.as_p }}
+            <button type="submit">Dodaj przeniesienie</button>
         </form>
         <a href="{% url 'wybor' %}">
             <button type="button" class="back-button">Powrót do strony głównej</button>
         </a>
     </div>
+
+    {% if error %}
+    <script type="text/javascript">
+        alert("{{ error }}");
+    </script>
+    {% endif %}
 </body>
 </html>
