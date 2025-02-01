@@ -83,12 +83,12 @@
             <tbody>
                 {% for exhibit in exhibits %}
                     <tr>
+                        <td>{{ exhibit.id }}</td>
                         <td>{{ exhibit.title }}</td>
-                        <td>{{ exhibit.exhibit_code }}</td>
                         <td>{{ exhibit.type }}</td>
-                        <td>{{ exhibit.height }}</td>
-                        <td>{{ exhibit.width }}</td>
-                        <td>{{ exhibit.weight }}</td>
+                        <td>{{ exhibit.size.height }}</td>
+                        <td>{{ exhibit.size.width }}</td>
+                        <td>{{ exhibit.size.weight }}</td>
                         <td>{{ exhibit.artist.first_name }} {{ exhibit.artist.last_name }}</td>
                     </tr>
                 {% empty %}

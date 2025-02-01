@@ -65,6 +65,7 @@ def login_view(request):
 
 def exhibit_list(request):
     exhibits = Eksponat.objects.all()
+    
     return render(request, 'muzeum_app/exhibit_list.html', {'exhibits': exhibits})
 
 def artist_list(request):
@@ -156,7 +157,7 @@ def newloan(request):
         form = LoanForm(request.POST)
         if form.is_valid():
             exhibit = form.cleaned_data['exhibit']
-            Institution = form.cleaned_data['institution']
+            institution = form.cleaned_data['institution']
             start_date = form.cleaned_data['start_date']
             end_date = form.cleaned_data['end_date']
 
@@ -168,7 +169,7 @@ def newloan(request):
             
             transfer_item = Loan(
                 exhibit=exhibit,
-                Institution=Institution,
+                place=institution,
                 start_date=start_date,
                 end_date=end_date
             )
