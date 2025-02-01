@@ -51,13 +51,6 @@ class Exhibit(models.Model):
 
         return total_days <= timedelta(days=30)
 
-class Gallery(models.Model):
-    name = models.CharField(max_length=100)
-    location = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.name
-
 class Loan(models.Model):
     exhibit = models.ForeignKey(Exhibit, on_delete=models.CASCADE)
     institution_name = models.CharField(max_length=200)
