@@ -12,9 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-mrday1u^ciw^h6wn%x6=#qy0vz72o)$&_2r^z5^o*o9@angh+o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['julia.bdius.xyz']
 
 LOGIN_REDIRECT_URL = 'login'  # Ustala stronę, na którą użytkownik trafi po zalogowaniu
 LOGIN_URL = 'login'  # Strona logowania
